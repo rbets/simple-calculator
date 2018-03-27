@@ -11,3 +11,10 @@
 # Output Directories   #
 ########################
 target
+
+########################
+# Eclipse Project      #
+########################
+.project
+.classpath
+.settings
