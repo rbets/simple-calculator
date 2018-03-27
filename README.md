@@ -94,4 +94,5 @@ This project is a basic Maven project, so simply cloning or downloading the proj
 As described in the project pom.xml, this project is dependent on the following third-party libraries:
 * log4j 2: generic java logging framework
 * Apache Commons CLI: command line parsing 
+* JUnit 4.12: unit test framework
 

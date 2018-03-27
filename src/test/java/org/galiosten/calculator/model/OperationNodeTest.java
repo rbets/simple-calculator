@@ -81,6 +81,14 @@ public class OperationNodeTest {
 		assertThat(divNode.evaluate(), equalTo(2));
 
 	}
+	
+	@Test
+	public void testToString() {
+		
+		final OperationNode addNode = new OperationNode(Add.class);
+		
+		assertThat(addNode.toString(), equalTo("Add"));
+	}
 
 	@Test
 	public void testEvaluateInvalidLeft() {

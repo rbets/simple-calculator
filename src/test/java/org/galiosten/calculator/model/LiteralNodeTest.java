@@ -19,6 +19,14 @@ public class LiteralNodeTest {
 
 		assertThat(node.evaluate(), equalTo(1));
 	}
+	
+	@Test
+	public void testToString() {
+		
+		final LiteralNode node = new LiteralNode(1);
+		
+		assertThat(node.toString(), equalTo("1"));
+	}
 
 	@Test
 	public void testInvaldLeftDescendent() throws Exception {
