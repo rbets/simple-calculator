@@ -5,6 +5,8 @@
  */
 package org.galiosten.calculator.model;
 
+import java.util.Objects;
+
 /**
  * The {@code LetNode} represents a Let operator in the expression tree. The Let
  * operator is specialized to assign values to variables. Evaluating a Let
@@ -42,12 +44,21 @@ public class LetNode extends Node {
 	}
 
 	@Override
+	public void setLeft(final Node left) {
+
+		Objects.requireNonNull(left);
+
+		if (left.getType() != Node.NodeType.VARIABLE) {
+			throw new IllegalArgumentException("Illegal left descendant for LET node");
+		}
+
+		super.setLeft(left);
+	}
+
+	@Override
 	public Integer evaluate() {
 
 		final Node leftNode = getLeft();
-		if (leftNode == null || leftNode.getType() != Node.NodeType.VARIABLE) {
-			throw new IllegalStateException("Illegal left descendant for LET node");
-		}
 
 		final Node rightNode = getRight();
 

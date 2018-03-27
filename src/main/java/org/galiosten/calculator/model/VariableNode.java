@@ -32,6 +32,11 @@ public class VariableNode extends Node {
 		this.identifier = identifier;
 	}
 
+	@Override
+	public void setRight(final Node right) {
+		throw new UnsupportedOperationException("Variables may not have right descendants");
+	}
+
 	/**
 	 * {@inheritDoc}
 	 * 
@@ -46,10 +51,6 @@ public class VariableNode extends Node {
 	 */
 	@Override
 	public Integer evaluate() {
-
-		if (getRight() != null) {
-			throw new IllegalStateException("Variables may not have right descendants");
-		}
 
 		final Node leftNode = getLeft();
 
