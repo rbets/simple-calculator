@@ -99,7 +99,7 @@ public class Main {
 
 			// a little extra help in debugging
 			if (LOG.isTraceEnabled()) {
-				e.printStackTrace();
+				LOG.trace("Error during expression evaluation: " + e.getMessage(), e);
 			}
 
 			System.exit(1);
