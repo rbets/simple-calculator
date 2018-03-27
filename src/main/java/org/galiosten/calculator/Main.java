@@ -47,14 +47,11 @@ public class Main {
 	private static final Logger LOG = LogManager.getLogger(Main.class);
 
 	/**
-	 * This will have to parse the command line, create the AST, and evaluate the
-	 * expression.
+	 * The entry point for the command line application. This method parses the
+	 * input and evaluates and displays the result on stdout.
 	 * 
 	 * @param args
-	 *            command-line arguments. Currently only '-l' or '--log-level' are
-	 *            supported.
-	 * @throws ParseException
-	 *             if the command line is malformed
+	 *            command-line arguments
 	 */
 	public static void main(final String... args) {
 
