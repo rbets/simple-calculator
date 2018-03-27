@@ -193,11 +193,29 @@ public class ExpressionParser {
 		return node;
 	}
 
+	/**
+	 * Returns a list of string parameters parsed from the provided parameter
+	 * string. Parameters are delimited either by a ',' or end-of-string.
+	 * Pattern-matching is used to extract parameters from provided string. Only
+	 * parameters representing literal values, variables, or expressions are
+	 * supported.
+	 * 
+	 * @param expected
+	 *            the number of expected parameters.
+	 * @param params
+	 *            the string containing the unparsed parameters
+	 * @return a list of string parameters parsed from the provided parameter string
+	 * @throws IllegalArgumentException
+	 *             if an error occurs during parameter parsing
+	 */
 	public static List<String> getParameters(final int expected, final String params) {
 
 		String toParse = params.replaceAll("\\s+", "");
 
-		LOG.debug("Parsing operation parameters. Expecting " + expected + " parameters in " + toParse);
+		if (LOG.isDebugEnabled()) {
+			LOG.debug("Parsing operation parameters. Expecting " + expected + " parameters in " + toParse);
+		}
+
 		final List<String> parsedParams = new ArrayList<>();
 
 		for (int i = 0; i < expected; i++) {
@@ -207,17 +225,26 @@ public class ExpressionParser {
 
 			final Matcher operationMatcher = operationPattern.matcher(toParse);
 			if (operationMatcher.find()) {
-				LOG.trace("Parsing operation");
+
+				if (LOG.isTraceEnabled()) {
+					LOG.trace("Parsing operation");
+				}
+
 				String opParam = operationMatcher.group(1);
 				parsedParams.add(opParam);
 				toParse = toParse.replaceFirst(operationRegex, "");
 
 			} else {
-				LOG.trace("Not parsing operation");
+				if (LOG.isTraceEnabled()) {
+					LOG.trace("Not parsing operation");
+				}
 
 				// it's either a literal or a variable
 				if (Character.isDigit(toParse.charAt(0))) {
-					LOG.trace("Parsing a literal");
+					if (LOG.isTraceEnabled()) {
+						LOG.trace("Parsing a literal");
+					}
+
 					String literalRegex = (i == expected - 1) ? LITERAL_PREFIX + "$" : LITERAL_PREFIX + ",";
 
 					Pattern literalPattern = Pattern.compile(literalRegex);
@@ -230,7 +257,10 @@ public class ExpressionParser {
 						throw new IllegalArgumentException("Illegal literal value: '" + toParse + "'");
 					}
 				} else {
-					LOG.trace("Parsing a variable");
+					if (LOG.isTraceEnabled()) {
+						LOG.trace("Parsing a variable");
+					}
+
 					String variableRegex = (i == expected - 1) ? VARIABLE_PREFIX + "$" : VARIABLE_PREFIX + ",";
 
 					Pattern variablePattern = Pattern.compile(variableRegex);
